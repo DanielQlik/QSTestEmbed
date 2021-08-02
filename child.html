@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="text/javascript">
+    const webIntegrationId = "DQQRY4aoIZcxZBXuujitWc9rcEM9242b";
+    function login() {
+      function isLoggedIn() {
+        return fetch("https://csetest.eu.qlikcloud.com/api/v1/users/me", {
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'qlik-web-integration-id': webIntegrationId,
+          },
+        }).then(response => {
+          return response.status === 200;
+        });
+      }
+      return isLoggedIn().then(loggedIn => {
+        if (!loggedIn) {
+          // check login
+          window.top.location.href = "https://csetest.eu.qlikcloud.com/login?qlik-web-integration-id=" + webIntegrationId + "&returnto=" + top.location.href;  
+          document.body.innerHTML = document.body.innerHTML + "<div>Please log in to https://csetest.eu.qlikcloud.com before accessing this page.</div>";          
+        }else{
+            window.location.href = "https://csetest.eu.qlikcloud.com/single/?appid=c9541c90-ee04-447a-b07c-42d1275cba6c&obj=90a8cea5-f1ab-423c-a806-8508866be0e1&theme=breeze&opt=ctxmenu,currsel" ;
+        }
+      });
+    }
+	login()
+  </script>
+</head>
+
+<body style="height:600px;">
+</body>
+
+</html>
